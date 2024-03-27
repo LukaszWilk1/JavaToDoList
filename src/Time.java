@@ -35,6 +35,20 @@ public class Time {
                 isMinuteCorrect = false;
             }
         }while(!isMinuteCorrect);
+        System.out.println("Time has been set successfully");
+    }
 
+    public void showTime(){
+        if(this.hour<10){
+            System.out.print("0"+hour);
+        } else {
+            System.out.print(hour);
+        }
+        System.out.print(":");
+        if(this.minute<10){
+            System.out.print("0"+minute);
+        } else {
+            System.out.print(minute);
+        }
     }
 }

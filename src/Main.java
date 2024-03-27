@@ -9,5 +9,6 @@ public class Main {
         todoList.showMenu();
         Time time = new Time();
         time.setTime();
+        time.showTime();
     }
 }
