@@ -5,6 +5,7 @@ public class Main {
         System.out.println("Enter your name: ");
         Scanner input = new Scanner(System.in);
         String userName = input.next();
-        System.out.println("Hello " + userName);
+        TodoList todoList = new TodoList(userName);
+        todoList.showList();
     }
 }
