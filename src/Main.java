@@ -7,5 +7,7 @@ public class Main {
         String userName = input.next();
         TodoList todoList = new TodoList(userName);
         todoList.showMenu();
+        Time time = new Time();
+        time.setTime();
     }
 }
