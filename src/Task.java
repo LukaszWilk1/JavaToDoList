@@ -1,3 +1,10 @@
 public class Task {
-    protected String taskName;
+    protected boolean isTaskFinished;
+    protected Time taskStartTime;
+    protected Time taskEndTime;
+
+    public Task(Time taskStartTime, Time taskEndTime){
+        this.taskStartTime = taskStartTime;
+        this.taskEndTime = taskEndTime;
+    }
 }
