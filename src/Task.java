@@ -7,4 +7,7 @@ public class Task {
         this.taskStartTime = taskStartTime;
         this.taskEndTime = taskEndTime;
     }
+
+    public void writeOutTask() {
+    }
 }

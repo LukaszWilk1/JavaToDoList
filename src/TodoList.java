@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class TodoList {
         private final String userName;
-        private ArrayList<Task> taskList = new ArrayList<>();
+        private final ArrayList<Task> taskList = new ArrayList<>();
         public TodoList(String userName){
             this.userName = userName;
         }
@@ -11,12 +11,16 @@ public class TodoList {
         public void showMenu() {
             System.out.println(userName);
             System.out.println("==========================================================================");
-            System.out.println("|                                 Lista                                  |");
+            System.out.println("|                                 List                                   |");
+            System.out.println("|                                                                        |");
+            for(Task task : taskList){
+                task.writeOutTask();
+            }
             System.out.println("==========================================================================");
             System.out.println("|                                                                        |");
-            System.out.println("|                           1. Dodaj zadanie                             |");
-            System.out.println("|                       2. Oznacz jako zrobione                          |");
-            System.out.println("|                           3. Zmien godziny                             |");
+            System.out.println("|                             1. Add task                                |");
+            System.out.println("|                      2. Mark task as finished                          |");
+            System.out.println("|                       3. Change task's hours                           |");
             System.out.println("|                                                                        |");
             System.out.println("==========================================================================");
         }
@@ -30,20 +34,30 @@ public class TodoList {
                 taskId = input.nextInt();
                 switch (taskId) {
                     case 1:
-                        Time startTaskTime = new Time();
-                        startTaskTime.setTime();
-                        Time endTaskTime = new Time();
-                        endTaskTime.setTime();
-                        Shopping shoppingTask = new Shopping(startTaskTime, endTaskTime);
+                        Time startShoppingTime = new Time();
+                        startShoppingTime.setTime();
+                        Time endShoppingTime = new Time();
+                        endShoppingTime.setTime();
+                        Shopping shoppingTask = new Shopping(startShoppingTime, endShoppingTime);
                         System.out.println("Task added successfully");
                         taskList.add(shoppingTask);
+                        showMenu();
+                        break;
+                    case 2:
+                        Time startCookingTime = new Time();
+                        startCookingTime.setTime();
+                        Time endCookingTime = new Time();
+                        endCookingTime.setTime();
+                        Cooking cookingTask = new Cooking(startCookingTime, endCookingTime);
+                        System.out.println("Task added successfully");
+                        taskList.add(cookingTask);
                         showMenu();
                         break;
                     default:
                         System.out.println("There is no such option!");
                         break;
                 }
-            }while(taskId<0 && taskId >1);
+            }while(taskId != 1 && taskId != 2);
 
         }
 }
