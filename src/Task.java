@@ -1,4 +1,6 @@
-public class Task {
+import java.io.Serializable;
+
+public class Task  implements Serializable {
     protected boolean isTaskFinished;
     protected Time taskStartTime;
     protected Time taskEndTime;

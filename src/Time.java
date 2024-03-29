@@ -1,5 +1,6 @@
+import java.io.Serializable;
 import java.util.Scanner;
-public class Time {
+public class Time implements Serializable {
     private int hour;
     private int minute;
 

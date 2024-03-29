@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.*;
 
 public class TodoList <T extends Task> {
         private final String userName;
@@ -29,7 +30,7 @@ public class TodoList <T extends Task> {
                 System.out.println("|                      2. Mark task as finished                          |");
                 System.out.println("|                         3. Show task details                           |");
                 System.out.println("|                       4. Change task's hours                           |");
-                System.out.println("|                          5. Close Program                              |");
+                System.out.println("|                          5. Save and Exit                              |");
                 System.out.println("|                                                                        |");
                 System.out.println("==========================================================================");
                 System.out.print("Choose option: ");
@@ -48,7 +49,7 @@ public class TodoList <T extends Task> {
                         changeTime();
                         break;
                     case 5:
-                        System.exit(0);
+                        saveAndExit();
                         break;
                     default:
                         System.out.println("There is no such option!");
@@ -117,6 +118,26 @@ public class TodoList <T extends Task> {
             }while(taskId != 1 && taskId != 2 && taskId != 3 && taskId != 4);
         }
 
+    public void markTaskAsFinished(){
+        if (taskList.size() > 0) {
+            Scanner input = new Scanner(System.in);
+            int taskId = 0;
+            do {
+                System.out.print("Choose task:");
+                taskId = input.nextInt();
+                if (taskId < 1 || taskId > taskList.size()) {
+                    System.out.println("Invalid task number. Please choose a valid task number.");
+                } else {
+                    taskList.get(taskId-1).setIsTaskFinished();
+                }
+            } while (taskId < 1 || taskId > taskList.size());
+            showMenu();
+        } else {
+            System.out.println("There are no tasks yet!");
+            showMenu();
+        }
+    }
+
     public void showTaskDetails() {
         if (taskList.size() > 0) {
             Scanner input = new Scanner(System.in);
@@ -161,23 +182,20 @@ public class TodoList <T extends Task> {
         }
     }
 
-    public void markTaskAsFinished(){
-        if (taskList.size() > 0) {
-            Scanner input = new Scanner(System.in);
-            int taskId = 0;
-            do {
-                System.out.print("Choose task:");
-                taskId = input.nextInt();
-                if (taskId < 1 || taskId > taskList.size()) {
-                    System.out.println("Invalid task number. Please choose a valid task number.");
-                } else {
-                    taskList.get(taskId-1).setIsTaskFinished();
+    public void saveAndExit(){
+            if(taskList.size()>0){
+                try {
+                    FileOutputStream usersList = new FileOutputStream(userName + ".txt");
+                    ObjectOutputStream objectOutputStream = new ObjectOutputStream(usersList);
+                    for(T task : taskList){
+                        objectOutputStream.writeObject(task);
+                    }
+                    System.exit(0);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
-            } while (taskId < 1 || taskId > taskList.size());
-            showMenu();
-        } else {
-            System.out.println("There are no tasks yet!");
-            showMenu();
-        }
+            } else {
+                System.exit(0);
+            }
     }
 }
