@@ -59,9 +59,12 @@ public class TodoList <T extends Task> {
             Scanner input = new Scanner(System.in);
             int taskId;
             do {
+                System.out.println("-----------------------------------------");
                 System.out.println("Choose type of task you want to add");
                 System.out.println("1. Shopping");
                 System.out.println("2. Cooking");
+                System.out.println("3. Studying");
+                System.out.println("-----------------------------------------");
                 taskId = input.nextInt();
                 switch (taskId) {
                     case 1:
@@ -84,8 +87,19 @@ public class TodoList <T extends Task> {
                         taskList.add(cookingTask);
                         showMenu();
                         break;
+                    case 3:
+                        Time startStudyingTime = new Time();
+                        startStudyingTime.setTime();
+                        Time endStudyingTime = new Time();
+                        endStudyingTime.setTime();
+                        T studyingTask = (T) new Studying(startStudyingTime, endStudyingTime);
+                        System.out.println("Task added successfully");
+                        taskList.add(studyingTask);
+                        showMenu();
+                        break;
                     default:
                         System.out.println("There is no such option!");
+                        showMenu();
                         break;
                 }
             }while(taskId != 1 && taskId != 2);
