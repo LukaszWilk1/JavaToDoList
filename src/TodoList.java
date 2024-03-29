@@ -1,28 +1,58 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TodoList {
+public class TodoList <T extends Task> {
         private final String userName;
-        private final ArrayList<Task> taskList = new ArrayList<>();
+        private final ArrayList<T> taskList = new ArrayList<>();
         public TodoList(String userName){
             this.userName = userName;
         }
 
         public void showMenu() {
-            System.out.println(userName);
-            System.out.println("==========================================================================");
-            System.out.println("|                                 List                                   |");
-            System.out.println("|                                                                        |");
-            for(Task task : taskList){
-                task.writeOutTask();
-            }
-            System.out.println("==========================================================================");
-            System.out.println("|                                                                        |");
-            System.out.println("|                             1. Add task                                |");
-            System.out.println("|                      2. Mark task as finished                          |");
-            System.out.println("|                       3. Change task's hours                           |");
-            System.out.println("|                                                                        |");
-            System.out.println("==========================================================================");
+            Scanner input = new Scanner(System.in);
+            int optionNumber;
+
+            do{
+                System.out.println(userName);
+                System.out.println("==========================================================================");
+                System.out.println("|                                 List                                   |");
+                System.out.println("|                                                                        |");
+                int index = 0;
+                for(T task : taskList){
+                    index++;
+                    task.writeOutTask(index);
+                }
+                System.out.println("==========================================================================");
+                System.out.println("|                                                                        |");
+                System.out.println("|                             1. Add task                                |");
+                System.out.println("|                      2. Mark task as finished                          |");
+                System.out.println("|                         3. Show task details                           |");
+                System.out.println("|                       4. Change task's hours                           |");
+                System.out.println("|                          5. Close Program                              |");
+                System.out.println("|                                                                        |");
+                System.out.println("==========================================================================");
+                System.out.print("Choose option: ");
+                optionNumber = input.nextInt();
+                switch (optionNumber){
+                    case 1:
+                        addTask();
+                        break;
+                    case 2:
+                        System.out.println("Task done");
+                        break;
+                    case 3:
+                        showTaskDetails();
+                        break;
+                    case 4:
+                        System.out.println("Hour changed");
+                        break;
+                    case 5:
+                        System.exit(0);
+                        break;
+                    default:
+                        System.out.println("There is no such option!");
+                }
+            } while(optionNumber != 1 && optionNumber != 2 && optionNumber != 3 && optionNumber != 4);
         }
 
         public void addTask(){
@@ -31,6 +61,7 @@ public class TodoList {
             do {
                 System.out.println("Choose type of task you want to add");
                 System.out.println("1. Shopping");
+                System.out.println("2. Cooking");
                 taskId = input.nextInt();
                 switch (taskId) {
                     case 1:
@@ -38,7 +69,7 @@ public class TodoList {
                         startShoppingTime.setTime();
                         Time endShoppingTime = new Time();
                         endShoppingTime.setTime();
-                        Shopping shoppingTask = new Shopping(startShoppingTime, endShoppingTime);
+                        T shoppingTask = (T) new Shopping(startShoppingTime, endShoppingTime);
                         System.out.println("Task added successfully");
                         taskList.add(shoppingTask);
                         showMenu();
@@ -48,7 +79,7 @@ public class TodoList {
                         startCookingTime.setTime();
                         Time endCookingTime = new Time();
                         endCookingTime.setTime();
-                        Cooking cookingTask = new Cooking(startCookingTime, endCookingTime);
+                        T cookingTask = (T) new Cooking(startCookingTime, endCookingTime);
                         System.out.println("Task added successfully");
                         taskList.add(cookingTask);
                         showMenu();
@@ -58,6 +89,26 @@ public class TodoList {
                         break;
                 }
             }while(taskId != 1 && taskId != 2);
-
         }
+
+    public void showTaskDetails() {
+        if (taskList.size() > 0) {
+            Scanner input = new Scanner(System.in);
+            int taskId = 0;
+            do {
+                System.out.print("Choose task:");
+                taskId = input.nextInt();
+                if (taskId < 1 || taskId > taskList.size()) {
+                    System.out.println("Invalid task number. Please choose a valid task number.");
+                } else {
+                    taskList.get(taskId - 1).showTaskInformation();
+                }
+            } while (taskId < 1 || taskId > taskList.size());
+            showMenu();
+        } else {
+            System.out.println("There are no tasks yet!");
+            showMenu();
+        }
+    }
+
 }
