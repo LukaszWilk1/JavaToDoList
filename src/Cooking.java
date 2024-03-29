@@ -4,7 +4,7 @@ public class Cooking extends Task{
     }
 
     public void writeOutTask(int taskId){
-        System.out.printf("|                               %d.Cooking                                |\n", taskId);
+        System.out.printf("|                              %d.Cooking                                 |\n", taskId);
     }
 
     public void showTaskInformation(){

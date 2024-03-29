@@ -13,6 +13,7 @@ public class TodoList <T extends Task> {
             int optionNumber;
 
             do{
+                System.out.print("Your name: ");
                 System.out.println(userName);
                 System.out.println("==========================================================================");
                 System.out.println("|                                 List                                   |");
@@ -64,6 +65,7 @@ public class TodoList <T extends Task> {
                 System.out.println("1. Shopping");
                 System.out.println("2. Cooking");
                 System.out.println("3. Studying");
+                System.out.println("4. Hobby");
                 System.out.println("-----------------------------------------");
                 taskId = input.nextInt();
                 switch (taskId) {
@@ -97,12 +99,22 @@ public class TodoList <T extends Task> {
                         taskList.add(studyingTask);
                         showMenu();
                         break;
+                    case 4:
+                        Time startHobbyTime = new Time();
+                        startHobbyTime.setTime();
+                        Time endHobbyTime = new Time();
+                        endHobbyTime.setTime();
+                        T hobbyTask = (T) new Hobby(startHobbyTime, endHobbyTime);
+                        System.out.println("Task added successfully");
+                        taskList.add(hobbyTask);
+                        showMenu();
+                        break;
                     default:
                         System.out.println("There is no such option!");
                         showMenu();
                         break;
                 }
-            }while(taskId != 1 && taskId != 2);
+            }while(taskId != 1 && taskId != 2 && taskId != 3 && taskId != 4);
         }
 
     public void showTaskDetails() {

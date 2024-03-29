@@ -1,10 +1,10 @@
-public class Studying extends Task{
-    public Studying(Time taskStartTime, Time taskEndTime){
+public class Hobby extends Task{
+    Hobby(Time taskStartTime, Time taskEndTime){
         super(taskStartTime, taskEndTime);
     }
 
     public void writeOutTask(int taskId){
-        System.out.printf("|                              %d.Studying                                |\n", taskId);
+        System.out.printf("|                               %d.Hobby                                  |\n", taskId);
     }
 
     public void showTaskInformation(){
@@ -15,7 +15,7 @@ public class Studying extends Task{
         } else {
             System.out.println("task is not finished");
         }
-        System.out.println("Task type: Studing");
+        System.out.println("Task type: Hobby");
         System.out.print("Task hours: ");
         this.taskStartTime.showTime();
         System.out.print(" - ");
