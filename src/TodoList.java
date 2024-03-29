@@ -7,9 +7,28 @@ public class TodoList <T extends Task> {
         private final ArrayList<T> taskList = new ArrayList<>();
         public TodoList(String userName){
             this.userName = userName;
+
+            File usersList = new File(userName + ".txt");
+            if(usersList.exists()){
+                try {
+                    FileInputStream fileInputStream = new FileInputStream(userName + ".txt");
+                    ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+                    while(true){
+                        try{
+                            T task = (T) objectInputStream.readObject();
+                            taskList.add(task);
+                        }catch(EOFException e){
+                            break;
+                        }
+                    }
+                } catch (IOException | ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
 
         public void showMenu() {
+
             Scanner input = new Scanner(System.in);
             int optionNumber;
 
