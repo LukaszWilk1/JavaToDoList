@@ -14,4 +14,8 @@ public class Task {
         this.taskStartTime = taskStartNewTime;
         this.taskEndTime = taskEndNewTime;
     }
+
+    public void setIsTaskFinished(){
+        this.isTaskFinished = true;
+    }
 }

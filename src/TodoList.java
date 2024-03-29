@@ -38,7 +38,7 @@ public class TodoList <T extends Task> {
                         addTask();
                         break;
                     case 2:
-                        System.out.println("Task done");
+                        markTaskAsFinished();
                         break;
                     case 3:
                         showTaskDetails();
@@ -126,6 +126,26 @@ public class TodoList <T extends Task> {
                     Time endTaskNewTime = new Time();
                     endTaskNewTime.setTime();
                     taskList.get(taskId-1).setTime(startTaskNewTime, endTaskNewTime);
+                }
+            } while (taskId < 1 || taskId > taskList.size());
+            showMenu();
+        } else {
+            System.out.println("There are no tasks yet!");
+            showMenu();
+        }
+    }
+
+    public void markTaskAsFinished(){
+        if (taskList.size() > 0) {
+            Scanner input = new Scanner(System.in);
+            int taskId = 0;
+            do {
+                System.out.print("Choose task:");
+                taskId = input.nextInt();
+                if (taskId < 1 || taskId > taskList.size()) {
+                    System.out.println("Invalid task number. Please choose a valid task number.");
+                } else {
+                    taskList.get(taskId-1).setIsTaskFinished();
                 }
             } while (taskId < 1 || taskId > taskList.size());
             showMenu();
