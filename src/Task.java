@@ -9,4 +9,9 @@ public class Task {
     }
     public void writeOutTask(int taskId) {}
     public void showTaskInformation() {}
+
+    public void setTime(Time taskStartNewTime, Time taskEndNewTime){
+        this.taskStartTime = taskStartNewTime;
+        this.taskEndTime = taskEndNewTime;
+    }
 }

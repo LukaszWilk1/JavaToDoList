@@ -44,7 +44,7 @@ public class TodoList <T extends Task> {
                         showTaskDetails();
                         break;
                     case 4:
-                        System.out.println("Hour changed");
+                        changeTime();
                         break;
                     case 5:
                         System.exit(0);
@@ -111,4 +111,27 @@ public class TodoList <T extends Task> {
         }
     }
 
+    public void changeTime(){
+        if (taskList.size() > 0) {
+            Scanner input = new Scanner(System.in);
+            int taskId = 0;
+            do {
+                System.out.print("Choose task:");
+                taskId = input.nextInt();
+                if (taskId < 1 || taskId > taskList.size()) {
+                    System.out.println("Invalid task number. Please choose a valid task number.");
+                } else {
+                    Time startTaskNewTime = new Time();
+                    startTaskNewTime.setTime();
+                    Time endTaskNewTime = new Time();
+                    endTaskNewTime.setTime();
+                    taskList.get(taskId-1).setTime(startTaskNewTime, endTaskNewTime);
+                }
+            } while (taskId < 1 || taskId > taskList.size());
+            showMenu();
+        } else {
+            System.out.println("There are no tasks yet!");
+            showMenu();
+        }
+    }
 }
