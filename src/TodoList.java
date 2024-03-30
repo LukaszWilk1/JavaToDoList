@@ -27,6 +27,10 @@ public class TodoList <T extends Task> {
             }
         }
 
+        public ArrayList<T> getTaskList(){
+            return taskList;
+        }
+
         public void showMenu() {
 
             Scanner input = new Scanner(System.in);
